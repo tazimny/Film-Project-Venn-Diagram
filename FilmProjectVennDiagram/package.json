@@ -14,5 +14,8 @@
     "vite": "^5.1.5",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
-  }
+  },
+  "extends": [
+    "plugin/vue/vue3-essential"
+  ]
 }
