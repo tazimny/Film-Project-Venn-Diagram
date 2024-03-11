@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <SearchBar />
+            <SearchBar v-model="event.title" label="title" type="text" />
         </div>
         <div>
             <AddButton />
@@ -15,3 +15,12 @@
     </div>
 </template>
 
+<script lang="ts">
+    export default {
+    	data() {
+	    return {
+	    	name: ''
+	    }
+	}
+    }
+</script>

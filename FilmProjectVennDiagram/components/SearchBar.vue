@@ -1,17 +1,28 @@
 <template>
     <div>
+	<label>{{label}}</label>
         <input 
             type="text"
-            placeholder="Enter name..."
-            :value="value"
-            @input="$emit('udpate:value', $event.target.value)" />
+	    placeholder="label"
+	    v-bind="$attrs"
+            :value="modelValue"
+            @input="$emit('udpate:modelValue', $event.target.value)" />
         <button>x</button>
     </div>
 </template>
 
 <script setup lang="ts">
-const value = ref("")
-
- 
+export default {
+    props: {
+    	label: {
+		type: String,
+		default: ''
+	},
+	modelValue: {
+	    type: [String, Number],
+	    default: ''
+	}
+    }
+    
 
 </script>
