@@ -1,28 +1,29 @@
 <template>
     <div>
-	<label>{{label}}</label>
-        <input 
-            type="text"
-	    placeholder="label"
-	    v-bind="$attrs"
-            :value="modelValue"
-            @input="$emit('udpate:modelValue', $event.target.value)" />
-        <button>x</button>
+        <input
+            :value="inputText"
+            placeholder="{{ inputPlaceholder }}"
+            type="{{ inputType }}"
+            @input="$emit('update:inputText', $event.target.value)"
+        />
     </div>
 </template>
 
-<script setup lang="ts">
-export default {
-    props: {
-    	label: {
-		type: String,
-		default: ''
-	},
-	modelValue: {
-	    type: [String, Number],
-	    default: ''
-	}
+<script>
+    export default {
+        props: {
+            inputText: {
+                type: [String, Number],
+                default: ''
+            },
+            inputPlaceholder: {
+                type: String,
+                default: ''
+            },
+            inputType: {
+                type: String,
+                default: 'text'
+            }
+        }
     }
-    
-
 </script>
