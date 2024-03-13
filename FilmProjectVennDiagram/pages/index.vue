@@ -9,14 +9,17 @@
         <div>
             <SearchBar v-model="inputValue" />
         </div>
+        <div>
+            <button @click="searchMovie">search movie</button>
+        </div>
         <!-- <div v-for="(movie, index) in movieData" :key="index">
             <p>{{ movie.knownFor[index].title }}</p>
         </div> -->
+        <p>{{ $config.movieDb.accessToken }}</p>
     </div>
 </template>
 
 <script>
-import apiTest from '~/server/api/testApi'
 export default {
     data() {
         return {
@@ -38,17 +41,29 @@ export default {
         },
         addSearchBar(){
             this.searchBars.push({value:''})
+            const runtimeConfig = useRuntimeConfig()
+            console.log(runtimeConfig)
+            
         },
         searchMovie(){
-            const url = "https://api.themoviedb.org/3/search/person?query=Christopher%20Nolan&include_adult=false&language=en-US&page=1"
+            const runtimeConfig = useRuntimeConfig()
+            const baseUrl = `${runtimeConfig.movieDb.baseUrl}/authentication`
+            const options = {
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${runtimeConfig.movieDb.accessToken}`
+                }
+            }
+            console.log(options.headers.Authorization)
+            console.log(baseUrl)
             
-            movieData = useFetch("")
-            console.log(this.movieData)
+            // const response = useFetch(baseUrl, options)
+            // console.log(response.data)
         },
         async testApi(){
             const response = await useFetch("https://fakestoreapi.com/products/1")
-            
-            console.log(response.data)
+
+            console.log(response.data.value.title)
         }
         
     }
