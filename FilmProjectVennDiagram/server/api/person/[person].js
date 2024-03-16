@@ -16,9 +16,13 @@ export default defineEventHandler(async (event) => {
         }
     }
     const relevantDetails = {
-        movies: []
+        movies: ['']
     }
     const personData = await $fetch(uri, options)
-        .then(personData => console.log(`personData: ${JSON.stringify(personData)}`))
-    return personData
+        .then(personData => personData = JSON.stringify(personData))
+        .then(personData => personData.results.forEach(element => {
+            relevantDetails.movies.push(element.results[0].known_for.title)
+        }))
+    console.log(JSON.parse(relevantDetails))
+    return relevantDetails
 })
