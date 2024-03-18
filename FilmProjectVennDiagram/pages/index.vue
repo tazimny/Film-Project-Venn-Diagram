@@ -11,10 +11,16 @@
             type="text"
         />
         <div>
-            <button @click="submitNames">TestApi</button>
+            <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
+        </div>
+        <div>
+            <button @click="retrieveMovies(personData)">Retrieve Movies</button>
         </div>
         <p>
             {{ inputValue.searchBar1 }}
+        </p>
+        <p>
+            {{ inputValue.searchBar2 }}
         </p>
     </div>
 </template>
@@ -28,6 +34,7 @@ export default {
     data() {
         return {
             personData: [],
+            movieList: [],
             inputValue: {
                 searchBar1: '',
                 searchBar2: ''
@@ -37,19 +44,31 @@ export default {
     },
     methods: {
         async getPersonData(person){
-            const options = {
-                accept: 'application/json',
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzJjMDc2ZWNhMjY3MWE0NGRjMjMxYmViOTJkNWU3MCIsInN1YiI6IjYzZWI5NjI3ZjkyNTMyMDA5ZDkyNzU1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n9BPdZmVLOdmRfqdrp6b7O2QET-47rLeLRZqxW86ppc`
-            }
-            //const {data} = await useFetch(`https://api.themoviedb.org/3/movie/11?api_key=cc2c076eca2671a44dc231beb92d5e70`)
             const {data} = await useFetch(`/api/person/${person}`)
             this.personData.push(data)
             console.log(person)
             console.log(this.personData.results)
         },
-        async submitNames(){
-            getPersonData(this.searchBar1)
-            getPersonData(this.searchBar2)
+        async submitNames(sb1, sb2){
+            console.log(`sb1: ${sb1}`)
+            console.log(`sb2: ${sb2}`)
+            await this.getPersonData(sb1)
+            await this.getPersonData(sb2)
+
+        },
+        async retrieveMovies(people){
+            console.log(`people.personID: ${people.personID}`)
+            await this.getMovieData(people.personID)
+            await this.getMovieData(people.personID)
+        },
+        async getMovieData(id){
+            const {data} = await useFetch(`/api/movies/${id}`)
+            this.movieList.push(data)
+            console.log(`id: ${id}`)
+            movieList.forEach(movie => {
+                console.log(`movie: ${movie.title}`)
+                
+            });
         }
     }
 }
