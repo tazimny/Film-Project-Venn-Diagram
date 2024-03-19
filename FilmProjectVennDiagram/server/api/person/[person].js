@@ -17,11 +17,13 @@ export default defineEventHandler(async (event) => {
         }
     }
     const relevantDetails = {
-        movies: []
+        fullName: String,
+        id: Number
     }
     const personData = await $fetch(uri, options)
         //.then(personData => personData = JSON.stringify(personData))
-    relevantDetails.movies.push(personData.results[0].name)
+    relevantDetails.fullName = personData.results[0].name
+    relevantDetails.id = personData.results[0].id
     
     //console.log(personData)
     return relevantDetails

@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
         }
     }
     const movieList = [{
-        title: '',
-        releaseDate: ''
+        title: String,
+        releaseDate: String
     }]
     const uri = `${baseUrl}person/${personID}/movie_credits`
     const movieCredits = await $fetch(uri, options)

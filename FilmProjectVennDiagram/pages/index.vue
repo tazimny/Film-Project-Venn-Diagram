@@ -14,7 +14,7 @@
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
         <div>
-            <button @click="retrieveMovies(personData)">Retrieve Movies</button>
+            <button @click="retrieveMovies(3125)">Retrieve Movies</button>
         </div>
         <p>
             {{ inputValue.searchBar1 }}
@@ -57,9 +57,12 @@ export default {
 
         },
         async retrieveMovies(people){
-            console.log(`people.personID: ${people.personID}`)
-            await this.getMovieData(people.personID)
-            await this.getMovieData(people.personID)
+            console.log(`people.personID: ${people[0].fullName}`)
+            console.log(`people.id: ${people[0].id}`)
+            console.log(`people.personID: ${people[1].fullName}`)
+            console.log(`people.id: ${people[1].id}`)
+            await this.getMovieData(people[0].id)
+            await this.getMovieData(people[1].id)            
         },
         async getMovieData(id){
             const {data} = await useFetch(`/api/movies/${id}`)
