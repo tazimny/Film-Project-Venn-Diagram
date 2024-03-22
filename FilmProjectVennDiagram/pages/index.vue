@@ -49,32 +49,40 @@ export default {
         async getPersonData(person){
             const {data} = await useFetch(`/api/person/${person}`)
             this.personData.push(data)
-            console.log(person)
-            console.log(this.personData.results)
+            // console.log(person)
+            // console.log(this.personData.results)
         },
         async submitNames(sb1, sb2){
-            console.log(`sb1: ${sb1}`)
-            console.log(`sb2: ${sb2}`)
+            // console.log(`sb1: ${sb1}`)
+            // console.log(`sb2: ${sb2}`)
             await this.getPersonData(sb1)
             await this.getPersonData(sb2)
 
         },
         async retrieveMovies() {
-            console.log(`personData.fullName: ${this.personData[0].fullName}`)
-            console.log(`personData.id: ${this.personData[0].id}`)
-            console.log(`personData.fullName: ${this.personData[1].fullName}`)
-            console.log(`personData.id: ${this.personData[1].id}`)
-            // await this.getMovieData(this.people[0].id)
-            // await this.getMovieData(this.people[1].id)            
+            // this.personData.forEach(person => {
+            //     console.log(person.value)
+            // })
+            const personOne = this.personData[0].value.id
+            const personTwo = this.personData[1].value.id
+            // console.log(`personData.fullName: ${this.personData[0].value.fullName}`)
+            // console.log(`personData.id: ${this.personData[0].value.id}`)
+            // console.log(`personData.fullName: ${this.personData[1].value.fullName}`)
+            // console.log(`personData.id: ${this.personData[1].value.id}`)
+            await this.getMovieData(personOne)
+            await this.getMovieData(personTwo)            
         },
         async getMovieData(id){
             const {data} = await useFetch(`/api/movies/${id}`)
             this.movieList.push(data)
-            console.log(`id: ${id}`)
-            movieList.forEach(movie => {
-                console.log(`movie: ${movie.title}`)
-                
-            });
+            //console.log(`id: ${id}`)
+            for (let cast in this.movieList.value){
+                console.log(`cast: ${cast.value}`)
+                // for(let movie in cast){
+                //     console.log(`title: ${movie.title}`)
+                // }
+            }
+            console.log(`title: ${this.movieList[0].value.cast[0].title}`)
         }
     }
 }
