@@ -60,7 +60,7 @@ export default {
 
         },
         async retrieveMovies() {
-            console.log(`personData.fullName: ${personData[0].fullName}`)
+            console.log(`personData.fullName: ${this.personData[0].fullName}`)
             console.log(`personData.id: ${this.personData[0].id}`)
             console.log(`personData.fullName: ${this.personData[1].fullName}`)
             console.log(`personData.id: ${this.personData[1].id}`)
