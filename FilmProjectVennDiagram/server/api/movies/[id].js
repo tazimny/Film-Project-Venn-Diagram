@@ -10,24 +10,19 @@ export default defineEventHandler(async (event) => {
         }
     }
     
-    const movieList = []
-    const movieProperties = {
-        id: Number,
-        title: String,
-        releaseDate: String
-    }
+    let movieList = []
+
     const uri = `${baseUrl}person/${id}/movie_credits`
     const movieCredits = await $fetch(uri, options)
+
     movieCredits.cast.forEach(element => {
-        movieProperties.title = element.title
-        movieProperties.id = element.id
-        movieProperties.releaseDate = element.release_date
-        movieList.push(movieProperties)
-        //console.log(`movieProperties: ${JSON.stringify(movieProperties)}`)
-    });
-    console.log(`movieList: ${JSON.stringify(movieList[0])}`)
-    // movieList.forEach(movie => {
-    //     console.log(`title: ${movie.title}`)
-    // })
+        let movieProperties = {
+            id: element.id,
+            title: element.title,
+            releaseDate: element.release_date
+        }
+        movieList.push(movieProperties)        
+    })
+
     return movieList
 })

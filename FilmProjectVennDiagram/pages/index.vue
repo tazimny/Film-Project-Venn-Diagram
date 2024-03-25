@@ -28,6 +28,9 @@
         <p>
             {{ movieList[0] }}
         </p>
+        <p>
+            {{ movieList[1] }}
+        </p>
     </div>
 </template>
 
@@ -42,9 +45,10 @@ export default {
             personData: [],
             movieList: [],
             inputValue: {
-                searchBar1: '',
-                searchBar2: ''
-            }
+                searchBar1: 'Gary Poulter',
+                searchBar2: 'Buddy Duress'
+            },
+            movies: []
         }
 
     },
@@ -61,11 +65,9 @@ export default {
         async retrieveMovies() {
             const personOne = this.personData[0].value.id
             const personTwo = this.personData[1].value.id
-            this.movieList.forEach(() => {
-                this.movieList.pop()
-            })
+            this.movieList = []
             await this.getMovieData(personOne)
-            await this.getMovieData(personTwo)            
+            await this.getMovieData(personTwo)        
         },
         async getMovieData(id){
             const {data} = await useFetch(`/api/movies/${id}`)
