@@ -14,7 +14,6 @@
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
         <div>
-            <button @click="retrieveMovies">Retrieve Movies</button>
         </div>
         <p>
             {{ inputValue.searchBar1 }}
@@ -25,12 +24,24 @@
         <p>
             {{ personData }}
         </p>
-        <p>
-            {{ movieList[0] }}
-        </p>
-        <p>
-            {{ movieList[1] }}
-        </p>
+        <div v-if="showDiv">
+            <div v-for="(index, artist) in movieList" :key="index">
+                <div v-for="movie in artist" :key="movie.id">
+                    <p>{{ movie.title }}</p>
+                    <p>{{ movie.release_date }}</p>
+                    <p>{{ movie.posterPath }}</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div v-for="(index, tests) in testsTests" :key="index">
+                <div v-for="test in tests" :key="test.id">
+                    <p>{{ test.name }}</p>
+                    <p>{{ test.age }}</p>
+                    <p>{{ test.id }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -42,13 +53,46 @@
 export default {
     data() {
         return {
+            showDiv: false,
             personData: [],
             movieList: [],
             inputValue: {
                 searchBar1: 'Gary Poulter',
                 searchBar2: 'Buddy Duress'
             },
-            movies: []
+            movies: [],
+            imageUrl: 'https://image.tmdb.org/t/p/w500',
+            testsTests: [
+                [
+                    {
+                        id: 1,
+                        name: 'Gary Poulter',
+                        age: 21
+                    },
+                    {
+                        id: 2,
+                        name: 'Buddy Duress',
+                        age: 22
+                    },
+                    {
+                        id: 3,
+                        name: 'jimmy smits',
+                        age: 23
+                    }
+                ],
+                [
+                    {
+                        id: 1,
+                        name: 'smith',
+                        age: 24
+                    },
+                    {
+                        id: 2,
+                        name: 'jones',
+                        age: 25
+                    }
+                ]
+            ]
         }
 
     },
@@ -60,6 +104,7 @@ export default {
         async submitNames(sb1, sb2){
             await this.getPersonData(sb1)
             await this.getPersonData(sb2)
+            await this.retrieveMovies()
 
         },
         async retrieveMovies() {
@@ -72,10 +117,10 @@ export default {
         async getMovieData(id){
             const {data} = await useFetch(`/api/movies/${id}`)
             this.movieList.push(data)
-            for (let movie in this.movieList){
-                console.log(`title: ${movie.title}`)
-            }
-            console.log()
+            // for (let movie in this.movieList){
+            //     console.log(`title: ${movie.title}`)
+            // }
+            // console.log()
         }
     }
 }

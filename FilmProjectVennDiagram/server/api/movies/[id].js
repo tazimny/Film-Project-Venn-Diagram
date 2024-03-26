@@ -19,7 +19,8 @@ export default defineEventHandler(async (event) => {
         let movieProperties = {
             id: element.id,
             title: element.title,
-            releaseDate: element.release_date
+            releaseDate: element.release_date,
+            posterPath: element.poster_path
         }
         movieList.push(movieProperties)        
     })
