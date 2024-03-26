@@ -10,20 +10,25 @@ export default defineEventHandler(async (event) => {
         }
     }
     
-    let movieList = []
-
+    let artists = {
+        artistId: id,
+        movies: []
+        
+    }
+    console.log(`artists.artistId: ${artists.artistId}`)
     const uri = `${baseUrl}person/${id}/movie_credits`
     const movieCredits = await $fetch(uri, options)
 
     movieCredits.cast.forEach(element => {
-        let movieProperties = {
+        let movie = {
             id: element.id,
             title: element.title,
             releaseDate: element.release_date,
-            posterPath: element.poster_path
+            posterPath: element.poster_path         
         }
-        movieList.push(movieProperties)        
+        console.log(`movie.title: ${movie.title}`)
+        artists.movies.push(movie)
     })
 
-    return movieList
+    return artists 
 })

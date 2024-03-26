@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   runtimeConfig: {
     accessToken: process.env.MOVIE_DB_ACCESS_TOKEN,
     apiKey: process.env.MOVIE_DB_API_KEY,
