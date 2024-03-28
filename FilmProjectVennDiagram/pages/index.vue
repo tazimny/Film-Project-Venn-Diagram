@@ -14,6 +14,9 @@
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
         <div>
+            <button @click="crossReference(movieCreditResults)">Cross Reference</button>
+        </div>
+        <div>
         </div>
         <p>
             {{ inputValue.searchBar1 }}
@@ -101,6 +104,11 @@ export default {
             //     console.log(`title: ${movie.title}`)
             // }
             // console.log()
+        },
+
+        crossReference(movieCreditResults){
+            console.log(`movieCreditResults[0].value.movies: ${movieCreditResults[0].value.movies}`)
+            console.log(`movieCreditResults[1].value.movies: ${movieCreditResults[1].value.movies}`)
         }
     }
 }

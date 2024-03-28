@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
         movies: []
         
     }
-    console.log(`artists.artistId: ${artists.artistId}`)
     const uri = `${baseUrl}person/${id}/movie_credits`
     const movieCredits = await $fetch(uri, options)
 
@@ -25,8 +24,7 @@ export default defineEventHandler(async (event) => {
             title: element.title,
             releaseDate: element.release_date,
             posterPath: element.poster_path         
-        }
-        console.log(`movie.title: ${movie.title}`)
+        } 
         artists.movies.push(movie)
     })
 
