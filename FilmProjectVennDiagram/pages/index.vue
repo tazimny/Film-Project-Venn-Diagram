@@ -27,7 +27,7 @@
         <p>
             {{ personData }}
         </p>
-        <div>
+        <div v-if="showDiv">
             <div class="mb-1" v-for="(artist, index) in movieCreditResults" :key="artist.artistId">
                 <h2>Artist: {{personData[index].value.fullName}}</h2>
                 <div v-for="movie in artist.value.movies" :key="movie.id">
@@ -37,6 +37,13 @@
                         <p>{{ movie.releaseDate }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div>
+            <div v-for="movie in movies" :key="movie.id">
+                <h2>{{ movie.title }}</h2>
+                <img :src="`${imageUrl}${movie.posterPath}`">
+                <h3>{{ movie.releaseDate }}</h3>
             </div>
         </div>
     </div>
@@ -54,8 +61,8 @@ export default {
             personData: [],
             movieCreditResults: [],
             inputValue: {
-                searchBar1: 'Gary Poulter',
-                searchBar2: 'Buddy Duress'
+                searchBar1: 'Emma Stone',
+                searchBar2: 'Ryan Gosling'
             },
             movies: [],
             imageUrl: 'https://image.tmdb.org/t/p/w500',
@@ -107,8 +114,23 @@ export default {
         },
 
         crossReference(movieCreditResults){
-            console.log(`movieCreditResults[0].value.movies: ${movieCreditResults[0].value.movies}`)
-            console.log(`movieCreditResults[1].value.movies: ${movieCreditResults[1].value.movies}`)
+            console.log(`movieCreditResults[0].value.movies: 
+            ${JSON.stringify(movieCreditResults[0].value.movies[0])}`)
+            console.log(`movieCreditResults[1].value.movies: ${movieCreditResults[1].value.movies[0]}`)
+
+            const matchedMovies = []
+            for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i){
+                const movie1 = movieCreditResults[0].value.movies[i]
+
+                for (let j = 0; j < movieCreditResults[1].value.movies.length; ++j){
+                    const movie2 = movieCreditResults[1].value.movies[j]
+                    if (movie1.id === movie2.id){
+                        matchedMovies.push(movie1)
+                    }
+                }
+            }
+            this.movies = matchedMovies
+
         }
     }
 }
