@@ -1,21 +1,22 @@
 <template>
     <div>
-        <SearchBar
-            v-model="inputValue.searchBar1"
-            label="Enter name..."
-            type="text"
-        />
-        <SearchBar
-            v-model="inputValue.searchBar2"
-            label="Enter name..."
-            type="text"
-        />
+        <div>
+            <SearchBar
+                v-model="inputValue.searchBar1"
+                label="Enter name..."
+                type="text"
+            />
+            <SearchBar
+                v-model="inputValue.searchBar2"
+                label="Enter name..."
+                type="text"
+            />
+        </div>
+
         <div>
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
-        <div>
-            <button @click="crossReference(movieCreditResults)">Cross Reference</button>
-        </div>
+
         <div>
         </div>
         <p>
@@ -61,8 +62,8 @@ export default {
             personData: [],
             movieCreditResults: [],
             inputValue: {
-                searchBar1: 'Emma Stone',
-                searchBar2: 'Ryan Gosling'
+                searchBar1: '',
+                searchBar2: ''
             },
             movies: [],
             imageUrl: 'https://image.tmdb.org/t/p/w500',
@@ -95,6 +96,7 @@ export default {
             await this.getPersonData(sb1)
             await this.getPersonData(sb2)
             await this.retrieveMovies()
+            this.crossReference(this.movieCreditResults)
 
         },
         async retrieveMovies() {
