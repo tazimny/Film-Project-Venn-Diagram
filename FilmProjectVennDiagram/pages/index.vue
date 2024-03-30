@@ -17,17 +17,6 @@
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
 
-        <div>
-        </div>
-        <p>
-            {{ inputValue.searchBar1 }}
-        </p>
-        <p>
-            {{ inputValue.searchBar2 }}
-        </p>
-        <p>
-            {{ personData }}
-        </p>
         <div v-if="showDiv">
             <div class="mb-1" v-for="(artist, index) in movieCreditResults" :key="artist.artistId">
                 <h2>Artist: {{personData[index].value.fullName}}</h2>

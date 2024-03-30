@@ -23,7 +23,8 @@ export default defineEventHandler(async (event) => {
             id: element.id,
             title: element.title,
             releaseDate: element.release_date,
-            posterPath: element.poster_path         
+            posterPath: element.poster_path,
+            popularity: element.popularity
         } 
         artists.movies.push(movie)
     })
