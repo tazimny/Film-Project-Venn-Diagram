@@ -56,22 +56,6 @@ export default {
             },
             movies: [],
             imageUrl: 'https://image.tmdb.org/t/p/w500',
-            careers: {
-                locales : [{
-                    region : 'South West',
-                    roles : [
-                        { name : 'Data Scientist', term: 'Contract' },
-                        { name : 'Copywriter', term: 'Full' }
-                    ]
-                },
-                {
-                    region : 'London',
-                    roles : [
-                        { name : 'Full Stack Dev', term: 'Contract' },
-                        { name : 'Back-end Dev', term: 'Full' }
-                    ]
-                }]
-            }
         }
 
     },
@@ -98,10 +82,6 @@ export default {
         async getMovieData(id){
             const {data} = await useFetch(`/api/movies/${id}`)
             this.movieCreditResults.push(data)
-            // for (let movie in this.movieList){
-            //     console.log(`title: ${movie.title}`)
-            // }
-            // console.log()
         },
 
         crossReference(movieCreditResults){
