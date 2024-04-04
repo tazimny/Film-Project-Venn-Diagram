@@ -28,21 +28,21 @@ export default {
             if (this.modelValue) {
                 this.filterResults = []
                 const {data} = await useFetch(`/api/person/${this.modelValue}`)
-                console.log(`data: ${JSON.stringify(data)}`)
-                await this.sortSearchBarResults(data.results, 'popularity')
+                //console.log(`data.length: ${JSON.stringify(data.value)}`)
+                await this.sortSearchBarResults(data.value, 'popularity')
                 //this.filterResults.push(sortedData)
 
             }
         },
         async sortSearchBarResults(data, popularity){
             // sort the data based on popularity
-            console.log(`data.value.length: ${data.length}`)
+            //console.log(`data.length: ${data.length}`)
             await this.quickSort(data, 0, data.length - 1, popularity)
             // push sorted results to filteredResults
             this.filteredResults.push(data)
         },
         async quickSort(arr, low, high, popularity) {
-            if (high >= low){
+            if (high <= low){
                 return
             }
             const pivotIndex = await this.partition(arr, low, high, popularity)
@@ -55,16 +55,17 @@ export default {
             let idx = low - 1
             for (let i = low; i < high; ++i) {
                 console.log(`arr[i][popularity]: ${arr[i][popularity]}`)
-                if (arr[i][popularity] >= pivotValue) {
-                    ++idx
-                    const tmp = arr[i][popularity]
-                    arr[i][popularity] = arr[idx][popularity]
-                    arr[idx][popularity] = tmp
+                if (arr[i][popularity] <= pivotValue) {
+                    idx++
+                    const tmp = arr[i]
+                    arr[i]= arr[idx]
+                    arr[idx] = tmp
                 }
             }
             idx++
-            arr[high][popularity] = arr[idx][popularity]
-            arr[idx][popularity] = pivotValue
+            arr[high] = arr[idx]
+            let pivotIndex = arr.indexOf(pivotValue)
+            arr[idx] = arr[pivotIndex] // might return undefined
             return idx
         }
         

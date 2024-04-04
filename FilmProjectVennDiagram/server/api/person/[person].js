@@ -16,20 +16,28 @@ export default defineEventHandler(async (event) => {
             Authorization: `Bearer ${accessToken}`
         }
     }
-    const relevantDetails = {
-        fullName: String,
-        id: Number,
-        popularity: Number,
-        profilePicture: String
-    }
     const personData = await $fetch(uri, options)
         //.then(personData => personData = JSON.stringify(personData))
-    relevantDetails.fullName = personData.results[0].name
-    relevantDetails.id = personData.results[0].id
-    relevantDetails.popularity = personData.results[0].popularity
-    relevantDetails.profilePicture = personData.results[0].profile_path
-    
+    const personResult = []
+    for (let i = 0; i < personData.results.length; ++i){
+        if (personData.results[i].popularity > 1){
+            const relevantDetails = {
+                fullName: String,
+                id: Number,
+                popularity: Number,
+                profilePicture: String
+            }
+            relevantDetails.fullName = personData.results[i].name
+            relevantDetails.id = personData.results[i].id
+            relevantDetails.popularity = personData.results[i].popularity
+            relevantDetails.profilePicture = personData.results[i].profile_path
+            personResult.push(relevantDetails) 
+        }
+        
+    }
+ 
+   
     //console.log(personData)
-    return relevantDetails
+    return personResult 
 })
 
