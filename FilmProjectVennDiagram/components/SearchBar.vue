@@ -21,7 +21,11 @@ export default {
             type: [String, Number],
             default: ''
         },
-        filteredResults: []
+    },
+    data() {
+        return {
+            filteredResults: []
+        }
     },
     methods: {
         async filterSearchBar() {
