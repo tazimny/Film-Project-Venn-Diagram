@@ -39,7 +39,7 @@ export default {
             //console.log(`data.length: ${data.length}`)
             await this.quickSort(data, 0, data.length - 1, popularity)
             // push sorted results to filteredResults
-            this.filteredResults.push(data)
+            this.filteredResults = data
         },
         async quickSort(arr, low, high, popularity) {
             if (high <= low){
@@ -55,7 +55,7 @@ export default {
             let idx = low - 1
             for (let i = low; i < high; ++i) {
                 console.log(`arr[i][popularity]: ${arr[i][popularity]}`)
-                if (arr[i][popularity] <= pivotValue) {
+                if (arr[i][popularity] >= pivotValue) {
                     idx++
                     const tmp = arr[i]
                     arr[i]= arr[idx]
@@ -63,9 +63,12 @@ export default {
                 }
             }
             idx++
+            let pivotIndex = arr.findIndex((item) => item[popularity] === pivotValue)
+            let tmp = arr[high]
             arr[high] = arr[idx]
-            let pivotIndex = arr.indexOf(pivotValue)
-            arr[idx] = arr[pivotIndex] // might return undefined
+            arr[idx] = tmp
+            //arr[high] = arr[idx]
+            //arr[idx] = arr[pivotIndex] // might return undefined
             return idx
         }
         
