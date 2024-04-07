@@ -73,8 +73,8 @@ export default {
 
         },
         async retrieveMovies() {
-            const personOne = this.personData[0].value.id
-            const personTwo = this.personData[1].value.id
+            const personOne = this.personData[0].value[0].id
+            const personTwo = this.personData[1].value[0].id
             this.movieCreditResults = []
             await this.getMovieData(personOne)
             await this.getMovieData(personTwo)        

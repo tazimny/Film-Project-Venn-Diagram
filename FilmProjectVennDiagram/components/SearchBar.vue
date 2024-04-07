@@ -7,6 +7,11 @@
             @keyup="filterSearchBar"
             v-bind="$attrs"
         />
+        <ul v-if="filteredResults">
+            <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)">
+                {{ person.fullName }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -74,6 +79,11 @@ export default {
             //arr[high] = arr[idx]
             //arr[idx] = arr[pivotIndex] // might return undefined
             return idx
+        },
+
+        async selectPerson(person) {
+            this.$emit('update:modelValue', person.fullName)
+            this.filteredResults = []
         }
         
     
