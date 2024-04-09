@@ -56,6 +56,7 @@ export default {
             },
             movies: [],
             imageUrl: 'https://image.tmdb.org/t/p/w500',
+            testData: ""
         }
 
     },
@@ -84,11 +85,19 @@ export default {
             this.movieCreditResults.push(data)
         },
 
-        crossReference(movieCreditResults){
-            console.log(`movieCreditResults[0].value.movies: 
-            ${JSON.stringify(movieCreditResults[0].value.movies[0])}`)
-            console.log(`movieCreditResults[1].value.movies: ${movieCreditResults[1].value.movies[0]}`)
+        async sortMovieResults(movies){
+            const searchBar = this.$refs.SearchBar
+            if (searchBar){
+                await searchBar.quickSort(movies, 0, movies.length - 1, 'popularity')
+            }
+            //this.testData = test()
+            const testArr = [3, 2, 1, 5, 45, 12, 0, 6]
+            const property = 'popularity'
+            return sort(movies, property)
+        },
 
+
+        async crossReference(movieCreditResults){
             const matchedMovies = []
             for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i){
                 const movie1 = movieCreditResults[0].value.movies[i]
@@ -101,7 +110,7 @@ export default {
                 }
             }
             this.movies = matchedMovies
-
+            await this.sortMovieResults(this.movies)
         }
     }
 }
