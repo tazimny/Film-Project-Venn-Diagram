@@ -8,8 +8,13 @@
             v-bind="$attrs"
         />
         <ul v-if="filteredResults">
-            <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)">
-                {{ person.fullName }}
+            <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
+                <div>
+                    <img :src="`${this.imageUrl}${person.profilePicture}`" height="75" width="50" loading="eager" />
+                </div>
+                <div>
+                    {{ person.fullName }}
+                </div>
             </li>
         </ul>
     </div>
@@ -29,7 +34,8 @@ export default {
     },
     data() {
         return {
-            filteredResults: []
+            filteredResults: [],
+            imageUrl: 'https://image.tmdb.org/t/p/w500/',
         }
     },
     methods: {
@@ -90,3 +96,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .person-list {
+        list-style-type: none;
+    }
+</style>
