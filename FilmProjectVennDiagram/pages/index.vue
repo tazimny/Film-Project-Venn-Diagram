@@ -90,8 +90,6 @@ export default {
             if (searchBar){
                 await searchBar.quickSort(movies, 0, movies.length - 1, 'popularity')
             }
-            //this.testData = test()
-            const testArr = [3, 2, 1, 5, 45, 12, 0, 6]
             const property = 'popularity'
             return sort(movies, property)
         },

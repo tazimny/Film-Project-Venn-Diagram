@@ -49,36 +49,35 @@ export default {
         },
         async sortSearchBarResults(data, popularity){
             // sort the data based on popularity
-            //await this.quickSort(data, 0, data.length - 1, popularity)
             await sort(data, popularity)
             // push sorted results to filteredResults
             this.filteredResults = data
         },
-        async quickSort(arr, low, high, popularity) {
-            if (high <= low){
-                return
-            }
-            const pivotIndex = await this.partition(arr, low, high, popularity)
-            await this.quickSort(arr, low, pivotIndex - 1, popularity)
-            await this.quickSort(arr, pivotIndex + 1, high, popularity)
-        },
-        async partition(arr, low, high, popularity) {
-            const pivotValue = arr[high][popularity]
-            let idx = low - 1
-            for (let i = low; i < high; ++i) {
-                if (arr[i][popularity] >= pivotValue) {
-                    idx++
-                    const tmp = arr[i]
-                    arr[i]= arr[idx]
-                    arr[idx] = tmp
-                }
-            }
-            idx++
-            let tmp = arr[high]
-            arr[high] = arr[idx]
-            arr[idx] = tmp
-            return idx
-        },
+       // async quickSort(arr, low, high, popularity) {
+            //if (high <= low){
+                //return
+            //}
+            //const pivotIndex = await this.partition(arr, low, high, popularity)
+            //await this.quickSort(arr, low, pivotIndex - 1, popularity)
+            //await this.quickSort(arr, pivotIndex + 1, high, popularity)
+        //},
+        //async partition(arr, low, high, popularity) {
+            //const pivotValue = arr[high][popularity]
+            //let idx = low - 1
+            //for (let i = low; i < high; ++i) {
+                //if (arr[i][popularity] >= pivotValue) {
+                    //idx++
+                    //const tmp = arr[i]
+                    //arr[i]= arr[idx]
+                    //arr[idx] = tmp
+                //}
+            //}
+            //idx++
+            //let tmp = arr[high]
+            //arr[high] = arr[idx]
+            //arr[idx] = tmp
+            //return idx
+        //},
 
         async selectPerson(person) {
             this.$emit('update:modelValue', person.fullName)

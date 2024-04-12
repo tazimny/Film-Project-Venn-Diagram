@@ -3,6 +3,7 @@ export default function (data: any, property?: string): any {
         return quickSort(data, 0, data.length - 1, property)
     }
     else {
+        // we can make another sort implementation without a property value. For int arrays and stuff
         return "No property provided"
     }
 }
