@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const movieCredits = await $fetch(uri, options)
 
     movieCredits.cast.forEach(element => {
-        let movie = {
+        let movie = { // add "character" or "job" as a property to help identify the person/movie
             id: element.id,
             title: element.title,
             releaseDate: element.release_date,
