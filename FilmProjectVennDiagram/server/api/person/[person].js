@@ -25,12 +25,14 @@ export default defineEventHandler(async (event) => {
                 fullName: String,
                 id: Number,
                 popularity: Number,
-                profilePicture: String
+                profilePicture: String,
+                job: String
             }
             relevantDetails.fullName = personData.results[i].name
             relevantDetails.id = personData.results[i].id
             relevantDetails.popularity = personData.results[i].popularity
             relevantDetails.profilePicture = personData.results[i].profile_path
+            relevantDetails.job = personData.results[i].known_for_department
             personResult.push(relevantDetails) 
         }
         

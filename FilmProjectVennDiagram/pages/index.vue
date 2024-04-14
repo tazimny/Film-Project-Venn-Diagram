@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div class="search-bars">
             <SearchBar
                 v-model="inputValue.searchBar1"
                 label="Enter name..."
@@ -114,3 +114,8 @@ export default {
 }
 </script>
 
+<style scoped>
+    .search-bars {
+        display: flex;
+    }
+</style>

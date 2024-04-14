@@ -7,14 +7,20 @@
             @keyup="filterSearchBar"
             v-bind="$attrs"
         />
-        <ul v-if="filteredResults">
+        <ul v-if="filteredResults && modelValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
-                <div>
-                    <img :src="`${this.imageUrl}${person.profilePicture}`" height="75" width="50" loading="eager" />
+                <div class="person-image">
+                    <img :src="`${this.imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
                 </div>
-                <div>
-                    {{ person.fullName }}
+                <div class="person-details">
+                    <div class="person-name">
+                        {{ person.fullName }}
+                    </div>
+                    <div class="person-job">
+                        ({{ person.job }})
+                    </div>
                 </div>
+               
             </li>
         </ul>
     </div>
@@ -48,9 +54,7 @@ export default {
             }
         },
         async sortSearchBarResults(data, popularity){
-            // sort the data based on popularity
             await sort(data, popularity)
-            // push sorted results to filteredResults
             this.filteredResults = data
         },
 
@@ -67,5 +71,24 @@ export default {
 <style scoped>
     .person-list {
         list-style-type: none;
+       
+        display: flex;
+    }
+    .person-image {
+        display: inline;   
+        
+    }
+    .person-name {
+        display: block;
+        
+        font-weight: bold;
+        font-size: 19px;
+    }
+    .person-job {
+        display: inline;
+        font-weight: italic;
+    }
+    .person-details {
+        display: block;
     }
 </style>
