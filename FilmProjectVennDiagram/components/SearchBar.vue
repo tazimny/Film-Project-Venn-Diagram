@@ -3,14 +3,14 @@
         <input
             :placeholder="label"
             :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)"
+            @input="$emit('update:props.modelValue', $event.target.value)"
             @keyup="filterSearchBar"
             v-bind="$attrs"
         />
-        <ul v-if="filteredResults && modelValue !== ''">
+        <ul v-if="filteredResults && props.modelValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
-                    <img :src="`${this.imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
+                    <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
                 </div>
                 <div class="person-details">
                     <div class="person-name">
@@ -26,9 +26,8 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
+<script setup>
+    let props = defineProps({
         label: {
             type: String,
             default: 'Enter name...'
@@ -37,36 +36,33 @@ export default {
             type: [String, Number],
             default: ''
         },
-    },
-    data() {
-        return {
-            filteredResults: [],
-            imageUrl: 'https://image.tmdb.org/t/p/w500/',
-        }
-    },
-    methods: {
-        async filterSearchBar() {
-            if (this.modelValue) {
-                this.filterResults = []
-                const {data} = await useFetch(`/api/person/${this.modelValue}`)
-                await this.sortSearchBarResults(data.value, 'popularity')
+    })
 
-            }
-        },
-        async sortSearchBarResults(data, popularity){
-            await sort(data, popularity)
-            this.filteredResults = data
-        },
+    const emit = defineEmits(['update:modelValue'])
 
-        async selectPerson(person) {
-            this.$emit('update:modelValue', person.fullName)
-            this.filteredResults = []
+    let filteredResults = ref([])
+    const imageUrl = 'https://image.tmdb.org/t/p/w500/'
+
+    async function filterSearchBar() {
+        if (props.modelValue){
+            filteredResults = []
+            const {data} = await useFetch(`/api/person/${props.modelValue}`)
+            await sortSearchBarResults(data.value, 'popularity')
         }
-        
-    
     }
-}
+
+    async function sortSearchBarResults(data, popularity){
+        await sort(data, popularity)
+        filteredResults = data
+    }
+
+    async function selectPerson(person) {
+        emit('update:props.modelValue', person.fullName)
+        filteredResults = []
+    }
+
 </script>
+
 
 <style scoped>
     .person-list {
