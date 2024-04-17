@@ -38,7 +38,7 @@
         },
     })
 
-    const emit = defineEmits(['update:modelValue'])
+    const emit = defineEmits(['update'])
 
     let filteredResults = ref([])
     const imageUrl = 'https://image.tmdb.org/t/p/w500/'
