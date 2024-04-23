@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, defineProps, defineEmits } from 'vue'
     const filteredResults: [] = ref([])
     const imageUrl = ref('https://image.tmdb.org/t/p/w500/')
 
@@ -28,5 +27,18 @@
     const selectPerson = async (person: String): Promise<void> => {
         emit('update:inputValue', person.fullName)
         filteredResults.value = []
+    }
+
+    const filterSearchBar = async () => {
+        if (props.inputValue){
+            filteredResults.value = []
+            const {data} = await useFetch(`/api/person/${props.inputValue}`)
+            await sortSearchBarResults(data.value, 'popularity')
+        }
+    }
+
+    const sortSearchBarResults = async (data: any, popularity: string) => {
+        await sort(data, popularity)
+        filteredResults.value = data
     }
 </script>
