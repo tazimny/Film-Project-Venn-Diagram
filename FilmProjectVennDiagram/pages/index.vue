@@ -11,6 +11,7 @@
                 label="Enter name..."
                 type="text"
             />
+            <SearchBarCompApi />
         </div>
 
         <div>
