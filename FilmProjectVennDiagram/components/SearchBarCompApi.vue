@@ -1,13 +1,14 @@
 <template>
     <div>
         <input
-            :placeholder="label"
-            :value="modelValue"
-            @input="$emit('update:inputValue', $event.target.value)"
-            @keyup="filterSearchBar"
-            v-bind="$attrs"
+           :placeholder="label" 
+           :value="inputValue"
+           @keydown="testKeyPress"
+           v-bind="$attrs"
+           v-model="inputValue.value"
         />
-        <ul v-if="filteredResults && inputValue !== ''">
+        <p>inputValue.value is: {{ inputValue.value }}</p>
+        <ul v-if="filteredResults.value && inputValue.value !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
@@ -27,31 +28,26 @@
 </template>
 
 <script setup lang="ts">
-    const filteredResults: [] = ref([])
-    const imageUrl = ref('https://image.tmdb.org/t/p/w500/')
+    let filteredResults: Ref<[]> = ref([])
+    const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
+    let inputValue: Ref<string> = ref('')
+    const label: string ='Enter name...'
 
-    const props = defineProps({
-        label: {
-            type: String,
-            default: 'Enter name...'
-        },
-        inputValue: {
-            type: [String, Number],
-            default: ''
-        }
-    })
+    const emit = defineEmits(['input', 'update', 'update:inputValue.value'])
 
-    const emit = defineEmits(['update', 'update:modelValue'])
+    const testKeyPress = () => {
+        console.log(inputValue.value)
+    }
 
     const selectPerson = async (person: String): Promise<void> => {
-        emit('update:inputValue', person.fullName)
+        emit('update:inputValue.value', person.fullName)
         filteredResults.value = []
     }
 
     const filterSearchBar = async () => {
-        if (props.inputValue){
+        if (inputValue.value){
             filteredResults.value = []
-            const {data} = await useFetch(`/api/person/${props.inputValue}`)
+            const {data} = await useFetch(`/api/person/${inputValue.value}`)
             await sortSearchBarResults(data.value, 'popularity')
         }
     }
@@ -60,6 +56,7 @@
         await sort(data, popularity)
         filteredResults.value = data
     }
+
 </script>
 
 
