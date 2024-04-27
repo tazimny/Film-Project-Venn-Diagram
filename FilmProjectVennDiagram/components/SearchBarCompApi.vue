@@ -1,14 +1,14 @@
 <template>
     <div>
         <input
-           :placeholder="label" 
-           :value="inputValue"
-           @keydown="testKeyPress"
+           v-model="inputValue"
+           @keyup="filterSearchBar"
+           :placeholder="label"
            v-bind="$attrs"
-           v-model="inputValue.value"
+           @input="$emit('update:inputValue.value', $event.target.value)"
         />
-        <p>inputValue.value is: {{ inputValue.value }}</p>
-        <ul v-if="filteredResults.value && inputValue.value !== ''">
+        <p>inputValue.value is: {{ inputValue }}</p>
+        <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
@@ -45,6 +45,7 @@
     }
 
     const filterSearchBar = async () => {
+        console.log(`filterSearchBar: ${inputValue.value}`)
         if (inputValue.value){
             filteredResults.value = []
             const {data} = await useFetch(`/api/person/${inputValue.value}`)

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="search-bars">
-            <SearchBar
+            <!--<SearchBar
                 v-model="inputValue.searchBar1"
                 label="Enter name..."
                 type="text"
@@ -10,8 +10,16 @@
                 v-model="inputValue.searchBar2"
                 label="Enter name..."
                 type="text"
+            />-->
+            <SearchBarCompApi 
+                v-model="inputValue.searchBar1"
+                type="text"
+
             />
-            <SearchBarCompApi />
+            <SearchBarCompApi 
+                v-model="inputValue.searchBar2"
+                type="text"
+            />
         </div>
 
         <div>
@@ -28,65 +36,12 @@
     </div>
 </template>
 
-<!-- <script setup>
-    //let personData = []
-    //let movieCreditResults = []
-    //let inputValue = {
-        //searchBar1: '',
-        //searchBar2: ''
-    //}
-    //let movies = []
-    //const imageUrl = 'https://image.tmdb.org/t/p/w500'
+<script setup lang="ts"><
+    let personData: Ref<any> = ref([
 
-    //async function getPersonData(person) {
-        //const {data} = await useFetch(`/api/person/${person}`)
-        //personData.push(data)
-    //}
+</script>
 
-    //async function submitNames(sb1, sb2) {
-        //personData = []
-        //await getPersonData(sb1)
-        //await getPersonData(sb2)
-        //await retrieveMovies()
-        //await crossReference(movieCreditResults)
-    //}
-
-    //async function retrieveMovies() {
-        //const personOne = personData[0].value[0].id
-        //const personTwo = personData[1].value[0].id
-        //movieCreditResults = []
-        //await getMovieData(personOne)
-        //await getMovieData(personTwo)
-    //}
-
-    //async function getMovieData(id){
-        //const {data} = await useFetch(`/api/movies/${id}`)
-        //movieCreditResults.push(data)
-    //}
-
-    //async function sortMovieResults(movies) {
-        //const property = 'popularity'
-        //return sort(movies, property)
-    //}
-
-    //async function crossReference(movieCreditResults) {
-        //const matchedMovies = []
-        //for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i) {
-            //const movie1 = movieCreditResults[0].value.movies[i]
-
-            //for (let j = 0; j < movieCreditResults[1].value.movies.length; ++j) {
-                //const movie2 = movieCreditResults[1].value.movies[j]
-                //if (movie1.id === movie2.id) {
-                    //matchedMovies.push(movie1)
-                //}
-            //}            
-        //}
-        //movies = matchedMovies
-        //await sortMovieResults(movies)
-    //}
-//</script>-->
-
-<script>
+ <script>
 export default {
     data() {
         return {
