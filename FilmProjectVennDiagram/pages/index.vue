@@ -37,13 +37,13 @@
 </template>
 
 <script setup lang="ts">
-    let personData: Ref<any[]> = ref([])
-    let movieCreditResults: Ref<any> = ref([])
-    let inputValue: Reactive<string> = reactive({
+    let personData = ref([])
+    let movieCreditResults = ref([])
+    let inputValue = reactive({
         searchBar1: '',
         searchBar2: ''
     })
-    let movies: Ref<any> = ref([])
+    let movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
     const getPersonData = async(person: string) => {
