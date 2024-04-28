@@ -37,8 +37,11 @@
 </template>
 
 <script setup lang="ts">
-    let personData = ref([])
-    let movieCreditResults = ref([])
+import Id from "~/server/api/movies/[id]"
+import type {MovieData, PersonData} from "../types/types"
+
+    let personData: Ref<PersonData[]> = ref([])
+    const movieCreditResults: Ref<MovieData[]> = ref([])
     let inputValue = reactive({
         searchBar1: '',
         searchBar2: ''
@@ -60,8 +63,16 @@
     }
 
     const retrieveMovies = async() => {
-        const personOne = personData[0].value[0].id
+        const personOne = personData.value[0].value[0].id
+        const personTwo = personData.value[1].value[0].id
+        movieCreditResults.value = []
+        await getMovieData(personOne)
+        await getMovieData(personTwo)
+    }
 
+    const getMovieData = async(id: string) => {
+        const {data} = await useFetch<MovieData>(`/api/movies/${id}`)
+        movieCreditResults.value.push(data)
     }
 
 </script>
