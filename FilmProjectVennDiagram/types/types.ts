@@ -1,4 +1,4 @@
-export { PersonData, MovieData }
+export type { PersonData, MovieData }
 type PersonData = {
     FullName?: string,
     Id?: number,

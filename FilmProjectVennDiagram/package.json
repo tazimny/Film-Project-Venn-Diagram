@@ -10,12 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^3.11.2",
     "vite": "^5.1.5",
     "vue": "^3.4.24",
     "vue-router": "^4.3.0"
   },
   "extends": [
     "plugin/vue/vue3-essential"
-  ]
+  ],
+  "devDependencies": {
+    "nuxt": "^3.11.2"
+  }
 }

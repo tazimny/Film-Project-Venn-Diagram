@@ -40,7 +40,7 @@
 import Id from "~/server/api/movies/[id]"
 import type {MovieData, PersonData} from "../types/types"
 
-    let personData: Ref<PersonData[]> = ref([])
+    let personData: Ref<PersonData | null>[] = ref([null, null])
     const movieCreditResults: Ref<MovieData[]> = ref([])
     let inputValue = reactive({
         searchBar1: '',
@@ -50,8 +50,10 @@ import type {MovieData, PersonData} from "../types/types"
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
     const getPersonData = async(person: string) => {
-        const {data} = await useFetch(`/api/person/${person}`)
-        personData.value.push(data)
+        const {data} = await useFetch<PersonData | null>(`/api/person/${person}`)
+        if (data !== null) {
+            personData.value.push(data)
+        }
     }
 
     const submitNames = async(sb1: string, sb2: string) => {
